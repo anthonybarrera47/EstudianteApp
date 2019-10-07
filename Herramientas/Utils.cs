@@ -30,5 +30,13 @@ namespace Herramientas
         {
             ScriptManager.RegisterStartupScript(page, page.GetType(), "Popup", $"{NombreModal}('{ Titulo }');", true);
         }
+        public static void LlenarCombo<T>(System.Web.UI.WebControls.DropDownList dropDownList,List<T> lista, string DataTextField, string DataValueField)
+        {
+            dropDownList.Items.Clear();
+            dropDownList.DataSource = lista;
+            dropDownList.DataTextField = DataTextField;
+            dropDownList.DataValueField = DataValueField;
+            dropDownList.DataBind();
+        }
     }
 }

@@ -56,7 +56,6 @@ namespace EstudianteApp.Registros
         {
             Limpiar();
         }
-
         protected void GuadarButton_Click(object sender, EventArgs e)
         {
             if (!Validar())

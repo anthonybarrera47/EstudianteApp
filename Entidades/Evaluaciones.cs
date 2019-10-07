@@ -19,7 +19,7 @@ namespace Entidades
         [ForeignKey("EstudianteId")]
         public virtual Estudiantes Estudiantes { get; set; }
         public decimal TotalPerdido { get; set; }
-        public virtual List<DetalleEvaluaciones> DetalleEvaluaciones{ get; set; }
+        public virtual List<DetalleEvaluaciones> DetalleEvaluaciones { get; set; }
 
         public Evaluaciones(int evaluacionID, DateTime fecha, int estudianteId, decimal totalPerdido)
         {
@@ -30,7 +30,6 @@ namespace Entidades
             TotalPerdido = totalPerdido;
             DetalleEvaluaciones = new List<DetalleEvaluaciones>();
         }
-
         public Evaluaciones()
         {
             EvaluacionID = 0;
@@ -38,6 +37,14 @@ namespace Entidades
             EstudianteId = 0;
             TotalPerdido = 0;
             DetalleEvaluaciones = new List<DetalleEvaluaciones>();
+        }
+        public void AgregarDetalle(int detalleID, int evaluacionID, int categoriaId, decimal valor, decimal logrado, decimal perdido)
+        {
+            DetalleEvaluaciones.Add(new DetalleEvaluaciones(detalleID, evaluacionID, categoriaId, valor, logrado, perdido));
+        }
+        public void RemoverDetalle(int index)
+        {
+            this.DetalleEvaluaciones.RemoveAt(index);
         }
     }
 

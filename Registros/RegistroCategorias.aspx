@@ -9,10 +9,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
-        <div class="card">
-            <div class="card-header bg-dark text-white text-center"><strong><%:Page.Title %></strong></div>
-            <div class="card-body justify-content-center align-items-center">
-                <div class="row ">
+        <div class="card ">
+            <div class="card-header bg-dark text-white text-center "><strong><%:Page.Title %></strong></div>
+            <div class="card-body">
+                <div class="row justify-content-between">
                     <%--Categoria ID --%>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
@@ -38,7 +38,7 @@
                         <div class="input-group-prepend">
                             <asp:Label ID="DescripcionLb" runat="server" CssClass="input-group-text">Descripcion</asp:Label>
                         </div>
-                        <asp:TextBox ID="DescripcionTextBox" runat="server" CssClass="form-control col-xl-4" aria-describedby="DescripcionLb" Visible="true"></asp:TextBox>
+                        <asp:TextBox ID="DescripcionTextBox" runat="server" CssClass="form-control input-sm col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" aria-describedby="DescripcionLb" Visible="true"></asp:TextBox>
                         <asp:RequiredFieldValidator
                             runat="server" ID="RFVDescripcionTextBox"
                             ControlToValidate="DescripcionTextBox" ForeColor="Red"

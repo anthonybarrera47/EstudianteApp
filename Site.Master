@@ -69,6 +69,7 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" runat="server" href="Registros/RegistroCategorias.aspx">Categorias</a>
                                 <a class="dropdown-item" runat="server" href="Registros/RegistroEstudiante.aspx">Estudiantes</a>
+                                <a class="dropdown-item" runat="server" href="Registros/RegistroEvaluaciones.aspx">Evaluaciones</a>
                                 
                             </div>
                         </li>
