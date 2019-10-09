@@ -1,6 +1,7 @@
 ﻿using BLL;
 using Entidades;
 using Extensores;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,7 +82,19 @@ namespace EstudianteApp.Consultas
                 FechaHastaTextBox.Visible = false;
             }
         }
+        protected void ImprimirButton_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Popup", $"ShowReporte('Listado de Categorias');", true);
 
+            CategoriasReportViewer.ProcessingMode = Microsoft.Reporting.WebForms.ProcessingMode.Local;
+            CategoriasReportViewer.Reset();
+            CategoriasReportViewer.LocalReport.ReportPath = Server.MapPath(@"~\Reportes\ListadoCategorias.rdlc");
+            CategoriasReportViewer.LocalReport.DataSources.Clear();
+
+            CategoriasReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Categorias",
+                                                               Lista));
+            CategoriasReportViewer.LocalReport.Refresh();
+        }
 
     }
 }

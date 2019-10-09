@@ -1,6 +1,7 @@
 ﻿using BLL;
 using Entidades;
 using Extensores;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace EstudianteApp.Consultas
 {
     public partial class ConsultaEstudiantes : System.Web.UI.Page
     {
-        static List<Estudiantes> lista = new List<Estudiantes>();
+        static List<Estudiantes> Lista = new List<Estudiantes>();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -46,11 +47,11 @@ namespace EstudianteApp.Consultas
             DateTime fechaDesde = FechaDesdeTextBox.Text.ToDatetime();
             DateTime FechaHasta = FechaHastaTextBox.Text.ToDatetime();
             if (FechaCheckBox.Checked)
-                lista = repositorio.GetList(filtro).Where(x => x.Fecha >= fechaDesde && x.Fecha<= FechaHasta).ToList();
+                Lista = repositorio.GetList(filtro).Where(x => x.Fecha >= fechaDesde && x.Fecha<= FechaHasta).ToList();
             else
-                lista = repositorio.GetList(filtro);
+                Lista = repositorio.GetList(filtro);
             repositorio.Dispose();
-            this.BindGrid(lista);
+            this.BindGrid(Lista);
         }
 
         private void BindGrid(List<Estudiantes> lista)
@@ -76,9 +77,23 @@ namespace EstudianteApp.Consultas
 
         protected void DatosGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            DatosGridView.DataSource = lista;
+            DatosGridView.DataSource = Lista;
             DatosGridView.PageIndex = e.NewPageIndex;
             DatosGridView.DataBind();
+        }
+
+        protected void ImprimirButton_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Popup", $"ShowReporte('Listado de Estudiantes');", true);
+
+            EstudiantesReportViewer.ProcessingMode = Microsoft.Reporting.WebForms.ProcessingMode.Local;
+            EstudiantesReportViewer.Reset();
+            EstudiantesReportViewer.LocalReport.ReportPath = Server.MapPath(@"~\Reportes\ListadoEstudiantes.rdlc");
+            EstudiantesReportViewer.LocalReport.DataSources.Clear();
+
+            EstudiantesReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Estudiantes",
+                                                               Lista));
+            EstudiantesReportViewer.LocalReport.Refresh();
         }
     }
 }

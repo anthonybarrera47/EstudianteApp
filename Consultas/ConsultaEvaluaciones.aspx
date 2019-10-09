@@ -19,6 +19,9 @@
             $("#ModalReporte").modal("show");
         }
     </script>
+    <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+        Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
+
     <asp:ScriptManager runat="server" ID="ScriptManager"></asp:ScriptManager>
     <div class="container-fluid">
         <div class="card text-center bg-light mb-3">
@@ -109,6 +112,9 @@
                             </Triggers>
                         </asp:UpdatePanel>
                     </div>
+                    <div class="row">
+                        <asp:Button ID="ImprimirButton" runat="server" CssClass="btn btn-success input-sm" Text="Imprimir" OnClick="ImprimirButton_Click" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -138,7 +144,7 @@
                                         <Columns>
                                             <asp:BoundField HeaderText="Detalle ID" DataField="DetalleID" Visible="false" />
                                             <asp:BoundField HeaderText="EvaluacionID" DataField="EvaluacionID" Visible="false" />
-                                            <asp:BoundField HeaderText="CategoriaId" DataField="CategoriaId" Visible ="false" />
+                                            <asp:BoundField HeaderText="CategoriaId" DataField="CategoriaId" Visible="false" />
                                             <asp:BoundField HeaderText="Categoria" DataField="Categoria" />
                                             <asp:BoundField HeaderText="Valor" DataField="Valor" />
                                             <asp:BoundField HeaderText="Logrado" DataField="Logrado" />
@@ -159,6 +165,26 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%-- El  Modal para el Reporte--%>
+    <div class="modal fade bd-example-modal-lg" id="ModalReporte" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm" style="max-width: 1000px!important; min-width: 550px!important">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLebel">Reporte de Estudiantes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <%--Viewer--%>
+                    <rsweb:ReportViewer ID="EvaluacionesReportViewer" runat="server" ProcessingMode="Remote" Height="100%" Width="100%">
+                    </rsweb:ReportViewer>
+                </div>
+                <div class="modal-footer">
                 </div>
             </div>
         </div>

@@ -7,7 +7,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript">
+        function ShowReporte(title) {
+            $("#ModalReporte .modal-title").html(title);
+            $("#ModalReporte").modal("show");
+        }
+    </script>
 
+    <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+        Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
+
+    <asp:ScriptManager runat="server" ID="ScriptManager"></asp:ScriptManager>
     <div class="container-fluid">
         <div class="card text-center bg-light mb-3">
             <div class="card-header"><%:Page.Title %></div>
@@ -60,7 +70,6 @@
                         </div>
                     </div>
                     <%--GRID--%>
-                    <asp:ScriptManager runat="server" ID="ScriptManager"></asp:ScriptManager>
                     <div class="row justify-content-center">
                         <asp:UpdatePanel ID="UpdatePanel" runat="server">
                             <ContentTemplate>
@@ -94,10 +103,32 @@
                             </Triggers>
                         </asp:UpdatePanel>
                     </div>
+                    <div class="row">
+                        <asp:Button ID="ImprimirButton" runat="server" CssClass="btn btn-success input-sm" Text="Imprimir" OnClick="ImprimirButton_Click" />
+                    </div>
                 </div>
             </div>
         </div>
-        
     </div>
 
+    <%-- El  Modal para el Reporte--%>
+    <div class="modal fade bd-example-modal-lg" id="ModalReporte" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm" style="max-width: 1000px!important; min-width: 550px!important">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLebel">Reporte de Estudiantes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <%--Viewer--%>
+                    <rsweb:ReportViewer ID="EstudiantesReportViewer" runat="server" ProcessingMode="Remote" Height="100%" Width="100%">
+                    </rsweb:ReportViewer>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
 </asp:Content>

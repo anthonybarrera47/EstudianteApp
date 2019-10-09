@@ -13,6 +13,15 @@ namespace EstudianteApp.Consultas {
     public partial class ConsultaEstudiantes {
         
         /// <summary>
+        /// ScriptManager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager;
+        
+        /// <summary>
         /// BuscarPorDropDownList control.
         /// </summary>
         /// <remarks>
@@ -67,15 +76,6 @@ namespace EstudianteApp.Consultas {
         protected global::System.Web.UI.WebControls.TextBox FechaHastaTextBox;
         
         /// <summary>
-        /// ScriptManager control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager;
-        
-        /// <summary>
         /// UpdatePanel control.
         /// </summary>
         /// <remarks>
@@ -92,5 +92,23 @@ namespace EstudianteApp.Consultas {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView DatosGridView;
+        
+        /// <summary>
+        /// ImprimirButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ImprimirButton;
+        
+        /// <summary>
+        /// EstudiantesReportViewer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Microsoft.Reporting.WebForms.ReportViewer EstudiantesReportViewer;
     }
 }

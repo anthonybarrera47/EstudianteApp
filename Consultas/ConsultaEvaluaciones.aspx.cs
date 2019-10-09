@@ -2,6 +2,7 @@
 using Entidades;
 using Extensores;
 using Herramientas;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -110,6 +111,20 @@ namespace EstudianteApp.Consultas
             DetalleDatosGridView.DataSource = Details;
             DetalleDatosGridView.DataBind();
             Repositorio.Dispose();
+        }
+
+        protected void ImprimirButton_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Popup", $"ShowReporte('Listado de Evaluaciones');", true);
+
+            EvaluacionesReportViewer.ProcessingMode = Microsoft.Reporting.WebForms.ProcessingMode.Local;
+            EvaluacionesReportViewer.Reset();
+            EvaluacionesReportViewer.LocalReport.ReportPath = Server.MapPath(@"~\Reportes\ListadoEvaluaciones.rdlc");
+            EvaluacionesReportViewer.LocalReport.DataSources.Clear();
+
+            EvaluacionesReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Evaluaciones",
+                                                               Lista));
+            EvaluacionesReportViewer.LocalReport.Refresh();
         }
     }
 }
