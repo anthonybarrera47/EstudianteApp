@@ -73,6 +73,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Consultas\ConsultaCategorias.aspx" />
+    <Content Include="Consultas\ConsultaEstudiantes.aspx" />
+    <Content Include="Consultas\ConsultaEvaluaciones.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -98,6 +101,27 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Consultas\ConsultaCategorias.aspx.cs">
+      <DependentUpon>ConsultaCategorias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consultas\ConsultaCategorias.aspx.designer.cs">
+      <DependentUpon>ConsultaCategorias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Consultas\ConsultaEstudiantes.aspx.cs">
+      <DependentUpon>ConsultaEstudiantes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consultas\ConsultaEstudiantes.aspx.designer.cs">
+      <DependentUpon>ConsultaEstudiantes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Consultas\ConsultaEvaluaciones.aspx.cs">
+      <DependentUpon>ConsultaEvaluaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consultas\ConsultaEvaluaciones.aspx.designer.cs">
+      <DependentUpon>ConsultaEvaluaciones.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -161,7 +185,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Consultas\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

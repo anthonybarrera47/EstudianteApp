@@ -81,7 +81,7 @@
                                         <asp:TemplateField ShowHeader="False" HeaderText="Opciones">
                                             <ItemTemplate>
                                                 <asp:Button ID="RemoverDetalleClick" runat="server" CausesValidation="false" CommandName="Select"
-                                                    Text="Remover" class="btn btn-danger btn-sm" OnClick="RemoverDetalleClick_Click" />
+                                                    Text="Remover" CssClass="btn btn-danger btn-sm" OnClick="RemoverDetalleClick_Click" />
                                             </ItemTemplate>
 
                                         </asp:TemplateField>
@@ -103,8 +103,15 @@
                         <asp:AsyncPostBackTrigger ControlID="DetalleGridView" />
                     </Triggers>
                 </asp:UpdatePanel>
-
+                <%--TotalPerdido --%>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <asp:Label ID="TotalPerdidoLB" runat="server" CssClass="input-group-text">TotalPerdido</asp:Label>
+                    </div>
+                    <asp:TextBox ID="TotalPerdidoTextBox" Enabled="false" AutoPostBack="true" TextMode="Number" PlaceHolder="0" runat="server" CssClass="form-control col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3" aria-describedby="TotalPerdidoLB"></asp:TextBox>
+                </div>
             </div>
+
             <div class="card-footer">
                 <div class="text-center">
                     <div class="form-group" display: inline-block>

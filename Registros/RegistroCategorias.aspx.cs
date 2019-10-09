@@ -15,9 +15,22 @@ namespace EstudianteApp.Registros
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!Page.IsPostBack)
+            if (!Page.IsPostBack)
             {
                 FechaTextBox.Text = DateTime.Now.ToFormatDate();
+                Limpiar();
+                int id = Request.QueryString["CategoriaID"].ToInt();
+                if (id > 0)
+                {
+                    using (RepositorioBase<Categorias> repositorio = new RepositorioBase<Categorias>())
+                    {
+                        Categorias Categoria = repositorio.Buscar(id);
+                        if (Categoria.EsNulo())
+                            Utils.Alerta(this, TipoTitulo.Informacion, TiposMensajes.RegistroNoEncontrado, IconType.info);
+                        else
+                            LlenaCampos(Categoria);
+                    }
+                }
             }
         }
         public void Limpiar()
@@ -25,6 +38,7 @@ namespace EstudianteApp.Registros
             CategoriaIdTextBox.Text = 0.ToString();
             FechaTextBox.Text = DateTime.Now.ToFormatDate();
             DescripcionTextBox.Text = string.Empty;
+            PromedioTextBox.Text = 0.ToString();
         }
         public Categorias LlenarClase()
         {
@@ -38,6 +52,7 @@ namespace EstudianteApp.Registros
             CategoriaIdTextBox.Text = categorias.CategoriaId.ToString();
             FechaTextBox.Text = categorias.Fecha.ToFormatDate();
             DescripcionTextBox.Text = categorias.Descripcion;
+            PromedioTextBox.Text = categorias.PromedioPerdida.ToString();
         }
         public bool Validar()
         {
@@ -49,8 +64,10 @@ namespace EstudianteApp.Registros
         }
         public bool ExisteEnLaBaseDeDatos()
         {
-            RepositorioBase<Categorias> repositorio = new RepositorioBase<Categorias>();
-            return !(repositorio.Buscar(CategoriaIdTextBox.Text.ToInt()).EsNulo());
+            using (RepositorioBase<Categorias> repositorio = new RepositorioBase<Categorias>())
+            {
+                return !(repositorio.Buscar(CategoriaIdTextBox.Text.ToInt()).EsNulo());
+            }
         }
         protected void NuevoButton_Click(object sender, EventArgs e)
         {

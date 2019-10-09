@@ -20,9 +20,23 @@ namespace EstudianteApp.Registros
             {
                 FechaTextBox.Text = DateTime.Now.ToFormatDate();
                 ViewState[KeyViewState] = new Evaluaciones();
-                LlenarCombo();
+                Limpiar();
+                int id = Request.QueryString["EvaluacionID"].ToInt();
+                if (id > 0)
+                {
+                    using (RepositorioEvaluacion repositorio = new RepositorioEvaluacion())
+                    {
+                        Evaluaciones evaluaciones = repositorio.Buscar(id);
+                        if (evaluaciones.EsNulo())
+                            Utils.Alerta(this, TipoTitulo.Informacion, TiposMensajes.RegistroNoEncontrado, IconType.info);
+                        else
+                            LlenarCampos(evaluaciones);
+                    }
+                }
             }
         }
+
+        #region "Metodos"
         private void LlenarCombo()
         {
             RepositorioBase<Estudiantes> repositorio = new RepositorioBase<Estudiantes>();
@@ -38,15 +52,18 @@ namespace EstudianteApp.Registros
             EvaluacionIdTextBox.Text = 0.ToString();
             FechaTextBox.Text = DateTime.Now.ToFormatDate();
             ViewState[KeyViewState] = new Evaluaciones();
+            ValorTextBox.Text = string.Empty;
+            LogradoTextBox.Text = string.Empty;
             LlenarCombo();
             this.BindGrid();
         }
-        private void LlenaCampo(Evaluaciones evaluaciones)
+        private void LlenarCampos(Evaluaciones evaluaciones)
         {
             Limpiar();
             EvaluacionIdTextBox.Text = evaluaciones.EvaluacionID.ToString();
             FechaTextBox.Text = evaluaciones.Fecha.ToFormatDate();
             EstudianteDropdownList.SelectedValue = evaluaciones.EstudianteId.ToString();
+            TotalPerdidoTextBox.Text = evaluaciones.TotalPerdido.ToString();
             ViewState[KeyViewState] = evaluaciones;
             this.BindGrid();
         }
@@ -56,6 +73,8 @@ namespace EstudianteApp.Registros
             evaluaciones.EvaluacionID = EvaluacionIdTextBox.Text.ToInt();
             evaluaciones.EstudianteId = EstudianteDropdownList.SelectedValue.ToInt();
             evaluaciones.Fecha = FechaTextBox.Text.ToDatetime();
+            evaluaciones.TotalPerdido = 0;
+            evaluaciones.DetalleEvaluaciones.ForEach(x => evaluaciones.TotalPerdido += x.Perdido);
             return evaluaciones;
         }
         private bool Validar()
@@ -67,12 +86,21 @@ namespace EstudianteApp.Registros
                 paso = false;
             return paso;
         }
+        private void Calcular()
+        {
+            Evaluaciones evaluaciones = ViewStateEvaluaciones();
+            decimal TotalPerdido = 0;
+            evaluaciones.DetalleEvaluaciones.ForEach(x => TotalPerdido += x.Perdido);
+            TotalPerdidoTextBox.Text = string.Empty;
+            TotalPerdidoTextBox.Text = TotalPerdido.ToString();
+        }
         private Evaluaciones ViewStateEvaluaciones()
         {
             return (Evaluaciones)ViewState[KeyViewState];
         }
         private void BindGrid()
         {
+            Calcular();
             Evaluaciones evaluaciones = ViewStateEvaluaciones();
             evaluaciones.DetalleEvaluaciones.ForEach(x => x.Categoria = new RepositorioBase<Categorias>().Buscar(x.CategoriaId).Descripcion);
             DetalleGridView.DataSource = evaluaciones.DetalleEvaluaciones;
@@ -83,6 +111,8 @@ namespace EstudianteApp.Registros
             RepositorioEvaluacion repositorio = new RepositorioEvaluacion();
             return !(repositorio.Buscar(EvaluacionIdTextBox.Text.ToInt()).EsNulo());
         }
+        #endregion
+        #region "Eventos"
         protected void BuscarButton_ServerClick(object sender, EventArgs e)
         {
             RepositorioEvaluacion repositorio = new RepositorioEvaluacion();
@@ -94,24 +124,22 @@ namespace EstudianteApp.Registros
             {
                 Evaluaciones evaluaciones = repositorio.Buscar(EvaluacionIdTextBox.Text.ToInt());
                 if (!evaluaciones.EsNulo())
-                    LlenaCampo(evaluaciones);
+                    LlenarCampos(evaluaciones);
                 else
                     Utils.ToastSweet(this, IconType.info, TiposMensajes.RegistroNoEncontrado);
             }
             repositorio.Dispose();
         }
-
         protected void NuevoButton_Click(object sender, EventArgs e)
         {
             Limpiar();
         }
-
         protected void GuadarButton_Click(object sender, EventArgs e)
         {
             if (!Validar())
                 return;
             RepositorioEvaluacion repositorio = new RepositorioEvaluacion();
-            Evaluaciones evaluaciones= LlenaClase();
+            Evaluaciones evaluaciones = LlenaClase();
             bool paso = false;
             TipoTitulo tipoTitulo = TipoTitulo.OperacionFallida;
             TiposMensajes tiposMensajes = TiposMensajes.RegistroNoGuardado;
@@ -138,7 +166,6 @@ namespace EstudianteApp.Registros
             Utils.Alerta(this, tipoTitulo, tiposMensajes, iconType);
             repositorio.Dispose();
         }
-
         protected void EliminarButton_Click(object sender, EventArgs e)
         {
             RepositorioEvaluacion repositorio = new RepositorioEvaluacion();
@@ -150,7 +177,10 @@ namespace EstudianteApp.Registros
             else
             {
                 if (repositorio.Eliminar(EvaluacionIdTextBox.Text.ToInt()))
+                {
+                    Limpiar();
                     Utils.ToastSweet(this, IconType.success, TiposMensajes.RegistroEliminado);
+                }
                 else
                     Utils.ToastSweet(this, IconType.info, TiposMensajes.RegistroNoEncontrado);
             }
@@ -158,13 +188,14 @@ namespace EstudianteApp.Registros
         }
         protected void AgregarDetalle_Click(object sender, EventArgs e)
         {
-            
             Evaluaciones evaluaciones = ViewStateEvaluaciones();
             decimal Valor = ValorTextBox.Text.ToDecimal();
             decimal Logrado = LogradoTextBox.Text.ToDecimal();
             evaluaciones.AgregarDetalle(0, evaluaciones.EvaluacionID, CategoriaDropDownList.SelectedValue.ToInt(),
-                                        Valor, Logrado,Valor-Logrado);
+                                        Valor, Logrado, Valor - Logrado);
             ViewState[KeyViewState] = evaluaciones;
+            ValorTextBox.Text = string.Empty;
+            LogradoTextBox.Text = string.Empty;
             this.BindGrid();
         }
 
@@ -176,5 +207,7 @@ namespace EstudianteApp.Registros
             ViewState[KeyViewState] = evaluaciones;
             this.BindGrid();
         }
+        #endregion
+
     }
 }

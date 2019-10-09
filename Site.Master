@@ -9,8 +9,9 @@
 
     <link href="Content/bootstrap.min.css" rel="stylesheet">
     <%--<link href="Content/font-awesome.min.css" rel="stylesheet" />--%>
-   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <%--<link href="Content/Style.css" rel="stylesheet" />--%>
+
 
     <script type="text/javascript" src="/Scripts/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="/Scripts/popper.min.js"></script>
@@ -50,7 +51,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-   
+
     <form id="form1" runat="server">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
@@ -70,14 +71,17 @@
                                 <a class="dropdown-item" runat="server" href="Registros/RegistroCategorias.aspx">Categorias</a>
                                 <a class="dropdown-item" runat="server" href="Registros/RegistroEstudiante.aspx">Estudiantes</a>
                                 <a class="dropdown-item" runat="server" href="Registros/RegistroEvaluaciones.aspx">Evaluaciones</a>
-                                
+
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Consultas
                             </a>
                             <div class="dropdown-menu" aria-labelledby="ConsultasNavbarDropDown">
-                                <a class="dropdown-item" runat="server" href="#">Estudiantes</a>
+                                <a class="dropdown-item" runat="server" href="Consultas/ConsultaCategorias.aspx">Categorias</a>
+                                <a class="dropdown-item" runat="server" href="Consultas/ConsultaEstudiantes.aspx">Estudiantes</a>
+                                <a class="dropdown-item" runat="server" href="Consultas/ConsultaEvaluaciones.aspx">Evaluaciones</a>
+
                             </div>
                         </li>
                     </ul>
@@ -90,7 +94,7 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - AnalisisApp</p>
+                <p>&copy; <%: DateTime.Now.Year %> - EstudiantesApp</p>
             </footer>
         </div>
     </form>

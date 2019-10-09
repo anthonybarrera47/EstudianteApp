@@ -69,6 +69,10 @@
       <Project>{2087ec3c-1bc2-4610-a233-c784343d9332}</Project>
       <Name>Entidades</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Herramientas\Herramientas.csproj">
+      <Project>{2DB5BA5D-E613-4817-A341-A9225734BE3E}</Project>
+      <Name>Herramientas</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

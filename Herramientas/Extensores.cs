@@ -24,6 +24,7 @@ namespace Extensores
             Decimal.TryParse(obj.ToString(), out Decimal value);
             return value;
         }
+        
         public static DateTime ToDatetime(this object obj)
         {
             DateTime.TryParse(obj.ToString(), out DateTime value);

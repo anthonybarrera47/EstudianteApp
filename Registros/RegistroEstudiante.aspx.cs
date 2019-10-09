@@ -18,6 +18,19 @@ namespace EstudianteApp.Registros
             if(!Page.IsPostBack)
             {
                 FechaTextBox.Text = DateTime.Now.ToFormatDate();
+                Limpiar();
+                int id = Request.QueryString["EstudianteId"].ToInt();
+                if (id > 0)
+                {
+                    using (RepositorioBase<Estudiantes> repositorio = new RepositorioBase<Estudiantes>())
+                    {
+                        Estudiantes estudiantes = repositorio.Buscar(id);
+                        if (estudiantes.EsNulo())
+                            Utils.Alerta(this, TipoTitulo.Informacion, TiposMensajes.RegistroNoEncontrado, IconType.info);
+                        else
+                            LlenaCampos(estudiantes);
+                    }
+                }
             }
         }
         private void Limpiar()
