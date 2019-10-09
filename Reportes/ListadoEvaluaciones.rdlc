@@ -496,42 +496,6 @@
         <rd:TableAdapterName>EvaluacionesTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
-    <DataSet Name="Estudiantes">
-      <Query>
-        <DataSourceName>EstudianteDataSet</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="EstudianteId">
-          <DataField>EstudianteId</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Nombre">
-          <DataField>Nombre</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Apellido">
-          <DataField>Apellido</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PuntosPerdidos">
-          <DataField>PuntosPerdidos</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="Fecha">
-          <DataField>Fecha</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>EstudianteDataSet</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\antho\source\repos\EstudianteApp\EstudianteDataSet.xsd</rd:SchemaPath>
-        <rd:TableName>Estudiantes</rd:TableName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>EstudiantesTableAdapter</rd:TableAdapterName>
-      </rd:DataSetInfo>
-    </DataSet>
   </DataSets>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>2809fa1e-2564-4735-9e0c-67a3d173fe63</rd:ReportID>

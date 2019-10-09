@@ -14,7 +14,7 @@ namespace DAL
         public virtual DbSet<Estudiantes> Estudiantes { get; set; }
         public virtual DbSet<Categorias> Categorias { get; set; }
 
-        public Contexto() : base("ConStr")
+        public Contexto() : base("ConStrWeb")
         {
 
         }
